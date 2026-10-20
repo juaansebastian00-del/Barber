@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbería Urbana  </title>
+
+  <style>
+
+    .logo-barberia {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      padding: 0;
+      z-index: 16;
+      margin-left: 710px;
+    }
+
+    .logo-barberia img {
+      width: 680px;
+
+      max-width: 560vw;
+      height: 400pt;
+      object-fit: contain;
+      display: block;
+      background: transparent;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-barberia img:hover {
+      transform: scale(1.09);
+    }
+
+
+
+
+    :root {
+      --black: #ff4400;
+      --dark: #000000;
+      --card: #000000;
+      --orange: #ff4400;
+      --white: #f5f5f5;
+      --gray: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+    }
+
+    button, input, select { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      min-height: 90vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 120px 8% 80px;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.94), rgba(0,0,0,.42)),
+        url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1800&q=85")
+        center/cover no-repeat;
+      overflow: hidden;
+    }
+
+    nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 25px 8%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 21px;
+      font-weight: 1000;
+      letter-spacing: 1px;
+    }
+
+    .logo span { color: var(--orange); }
+
+    .nav-link {
+      border: 1px solid var(--orange);
+      padding: 12px 16px;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: .25s;
+    }
+
+    .nav-link:hover {
+      background: var(--orange);
+      color: #000;
+    }
+
+    .hero {
+      max-width: 750px;
+      position: relative;
+      z-index: 1;
+      animation: appear .9s ease both;
+    }
+
+    .tag {
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(48px, 9vw, 105px);
+      line-height: .92;
+      text-transform: uppercase;
+      font-weight: 1000;
+      letter-spacing: -3px;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--orange);
+      text-shadow: 0 0 30px #ffffff;
+    }
+
+    .hero p {
+      margin-top: 24px;
+      color: #ccc;
+      line-height: 1.8;
+      max-width: 490px;
+    }
+
+    .btn {
+      border: none;
+      background: var(--orange);
+      color: #ffffff;
+      padding: 16px 23px;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      transition: .25s;
+      clip-path: polygon(0 0,100% 0,100% 80%,92% 100%,0 100%);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 25px #ff650066;
+    }
+
+    .hero .btn { margin-top: 28px; }
+
+    section { padding: 85px 8%; }
+
+    .services-section {
+      background:
+        radial-gradient(ellipse at top right, #ff4400, transparent 90%),
+        var(--dark);
+    }
+
+    .section-heading { margin-bottom: 35px; }
+
+    .section-heading h2 {
+      font-size: clamp(32px, 5vw, 55px);
+      font-weight: 1000;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .section-heading h2 span { color: var(--orange); }
+
+    .section-heading p {
+      color: var(--gray);
+      margin-top: 15px;
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    /* TARJETAS ANIMADAS */
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .service-card {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 195px;
+      padding: 26px;
+      border: 1px solid #ffffff;
+      background: var(--card);
+      cursor: pointer;
+      transition:
+        transform .25s,
+        border-color .25s,
+        box-shadow .25s,
+        background .25s;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: linear-gradient(115deg, #ff650022, transparent 65%);
+      opacity: 0;
+      transition: opacity .4s;
+    }
+
+    .service-card::after {
+      content: "";
+      position: absolute;
+      top: -70%;
+      left: -100%;
+      width: 65%;
+      height: 240%;
+      transform: rotate(25deg);
+      background: linear-gradient(
+        90deg, transparent, rgb(255 0 0 / 0.09), transparent
+      );
+      transition: left .6s;
+      pointer-events: none;
+    }
+
+    .service-card:hover {
+      border-color: var(--orange);
+      transform: translateY(-5px);
+    }
+
+    .service-card:hover::after { left: 150%; }
+
+    .service-card.selected {
+      border-color: var(--orange);
+      background: #000000;
+      box-shadow:
+        inset 0 0 26px rgb(255 255 255),
+        0 0 20px rgb(255 255 255);
+      animation: impact .40s ease;
+    }
+
+    .service-card.selected::before { opacity: 1; }
+
+    .service-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .service-name {
+      font-size: 19px;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.35;
+    }
+
+    .service-price {
+      color: var(--orange);
+      font-weight: 1000;
+      font-size: 20px;
+      white-space: nowrap;
+    }
+
+    .service-description {
+      margin-top: 14px;
+      color: #ffffff;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .select-indicator {
+      margin-top: 20px;
+      height: 28px;
+      width: 28px;
+      border: 1px solid #000000;
+      display: grid;
+      place-items: center;
+      font-weight: 1000;
+      color: transparent;
+      transition: .3s;
+    }
+
+    .selected .select-indicator {
+      background: var(--orange);
+      color: #ffffff;
+      border-color: var(--orange);
+      transform: rotate(360deg) scale(1.1);
+    }
+
+    .selection-label {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      color: var(--orange);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      opacity: 0;
+      transform: translateY(-5px);
+      transition: .2s;
+    }
+
+    .selected .selection-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .total-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+      padding: 24px;
+      background: #000000;
+      border: 1px solid #ffffff;
+    }
+
+    .total-bar small {
+      display: block;
+      color: #000000;
+      margin-bottom: 8px;
+    }
+
+    .total-amount {
+      color: var(--orange);
+      font-size: 30px;
+      font-weight: 1000;
+    }
+
+    .total-bar .btn { margin: 0; }
+
+    /* FORMULARIO */
+
+    .booking-section { background: var(--black); }
+
+    .booking-form {
+      max-width: 720px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .field.full { grid-column: 1 / -1; }
+
+    .field label {
+      font-size: 12px;
+      color: #ccc;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ffffff;
+      border-radius: 0;
+      background: #171717;
+      color: white;
+      outline: none;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--orange);
+    }
+
+    .field input[type="date"] { color-scheme: dark; }
+
+    .field select option { background: #000000; }
+
+    .booking-note {
+      grid-column: 1 / -1;
+      color: #000000;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    #send-whatsapp { width: 100%; }
+
+    #send-whatsapp:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .marquee {
+      padding: 60px 8%;
+      background: var(--orange);
+      color: #000000;
+      text-align: center;
+    }
+
+    .marquee h2 {
+      font-size: clamp(30px, 6vw, 65px);
+      font-weight: 1000;
+      font-style: italic;
+      line-height: 1.05;
+    }
+
+    .marquee p {
+      margin-top: 15px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* REDES SOCIALES */
+
+    .social-section {
+      text-align: center;
+      background: #000000;
+    }
+
+    .social-section .section-heading p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 32px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 17px 24px;
+      min-width: 185px;
+      background: #1b1b1b;
+      border: 1px solid #ff4400;
+      transition: .25s;
+    }
+
+    .social-link:hover {
+      transform: translateY(-5px);
+      border-color: var(--orange);
+      box-shadow: 0 8px 25px #ff65001c;
+    }
+
+    .social-link svg {
+      width: 30px;
+      height: 30px;
+      fill: currentColor;
+    }
+
+    .social-link span {
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .instagram { color: #ff4400; }
+    .facebook { color: #002c78; }
+
+    footer {
+      padding: 25px 15px;
+      text-align: center;
+      color: #777;
+      border-top: 1px solid #292929;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    footer strong { color: var(--orange); }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes impact {
+      0% { transform: scale(.96); }
+      45% { transform: scale(1.025); }
+      100% { transform: scale(1); }
+    }
+
+    @media (max-width: 650px) {
+      header { min-height: 80vh; padding: 110px 6% 70px; }
+      nav { padding: 20px 6%; }
+      .logo { font-size: 16px; }
+      .nav-link { padding: 10px; font-size: 10px; }
+      section { padding: 65px 6%; }
+      .services-grid { grid-template-columns: 1fr; gap: 14px; }
+      .service-card { padding: 23px; }
+      .booking-form { grid-template-columns: 1fr; }
+      .field.full, .booking-note { grid-column: auto; }
+      .total-bar { align-items: flex-start; }
+      .total-bar .btn { width: 100%; }
+      .social-link { min-width: 145px; padding: 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* BOTÓN CONTINUAR - ESTILO URBANO */
+    .btn-continuar {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ff7a00, #ff4500);
+      color: #fff;
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: 2px solid #ff9d00;
+      border-radius: 12px;
+      padding: 16px 32px;
+      cursor: pointer;
+      box-shadow: 0 0 12px #ff6500;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      animation: pulsoUrbano 1.8s infinite;
+    }
+
+    /* Brillo al pasar el cursor */
+    .btn-continuar:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 15px #ff6500,
+      0 0 30px #ff6500,
+      0 0 45px #ff4500;
+    }
+
+    /* Efecto al presionarlo */
+    .btn-continuar:active {
+      transform: scale(0.92);
+      box-shadow: 0 0 30px #ff8c00;
+    }
+
+    /* Destello que cruza el botón */
+    .btn-continuar::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 70%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgb(232 5 5 / 0.65),
+        transparent
+      );
+      transform: skewX(-25deg);
+      animation: destelloUrbano 3s infinite;
+    }
+
+    /* Animación de brillo */
+    @keyframes pulsoUrbano {
+      0%, 100% {
+        box-shadow: 0 0 10px #ff6500;
+      }
+      50% {
+        box-shadow: 0 0 25px #ff6500,
+        0 0 40px #ff4500;
+      }
+    }
+
+    @keyframes destelloUrbano {
+      0%, 65% {
+        left: -120%;
+      }
+      100% {
+        left: 150%;
+      }
+    }
+
+    /* Accesibilidad: reducir movimiento si el usuario lo prefiere */
+    @media (prefers-reduced-motion: reduce) {
+      .btn-continuar,
+      .btn-continuar::before {
+        animation: none;
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+<nav>
+  <a class="logo-barberia" href="#inicio">
+    <img
+      src="img/logo-barberia-urbana.png"
+      alt="Logo de Barbería Urbana"
+    />
+  </a>
+</nav>
+
+
+
+<header id="inicio">
+
+
+
+  <div class="hero">
+
+    <h1>Tu estilo.<span>Tus reglas.</span></h1>
+    <p>
+      No sigas tendencias, crea tu propio estilo.
+      Elige tu servicio y agenda tu próxima experiencia en Barbería Urbana.
+    </p>
+    <a class="btn" href="#servicios">Escoger mi flow ↗</a>
+  </div>
+</header>
+
+<section class="services-section" id="servicios">
+  <div class="section-heading">
+
+    <h2>Escoge tu flow <span>activa tu estilo</span></h2>
+    <p>
+      Toca las tarjetas para seleccionar tus servicios.
+
+    </p>
+  </div>
+
+  <div class="services-grid" id="services-grid"></div>
+
+  <div class="total-bar">
+    <div>
+      <small id="selection-count">0 servicios seleccionados</small>
+      <div class="total-amount" id="total">$0</div>
+    </div>
+    <button type="button" class="btn" id="continue-btn">
+      Continuar ↗
+    </button>
+  </div>
+</section>
+
+<section class="booking-section" id="agenda">
+  <div class="section-heading">
+
+    <h2>Agenda tu <span>cita.</span></h2>
+    <p>
+      Completa tus datos y envía tu solicitud directamente al WhatsApp
+      de Barbería Urbana.
+    </p>
+  </div>
+
+  <form class="booking-form" id="booking-form">
+    <div class="field">
+      <label for="customer-name">Nombre completo</label>
+      <input id="customer-name" type="text" maxlength="80"
+             placeholder="Escribe tu nombre" autocomplete="name" required>
+    </div>
+
+    <div class="field">
+      <label for="booking-date">Fecha preferida</label>
+      <input id="booking-date" type="date" required>
+    </div>
+
+    <div class="field full">
+      <label for="booking-time">Hora preferida</label>
+      <select id="booking-time" required>
+        <option value="">Selecciona una hora</option>
+        <option>8:00 a. m.</option>
+        <option>9:00 a. m.</option>
+        <option>10:00 a. m.</option>
+        <option>11:00 a. m.</option>
+        <option>12:00 p. m.</option>
+        <option>1:00 p. m.</option>
+        <option>2:00 p. m.</option>
+        <option>3:00 p. m.</option>
+        <option>4:00 p. m.</option>
+        <option>5:00 p. m.</option>
+        <option>6:00 p. m.</option>
+      </select>
+    </div>
+
+    <p class="booking-note">
+      Al pulsar el botón se abrirá WhatsApp con tu solicitud preparada.
+      Debes pulsar Enviar en WhatsApp. La cita queda pendiente hasta que
+      el barbero confirme la disponibilidad.
+    </p>
+
+    <div class="field full">
+      <button type="submit" class="btn" id="send-whatsapp" disabled>
+        Activar mi experiencia ✦
+      </button>
+    </div>
+  </form>
+</section>
+
+<div class="marquee">
+  <h2>NO ES SOLO UN CORTE.<br>ES TU IDENTIDAD.</h2>
+  <p>Barbería Urbana · Marca tu estilo</p>
+</div>
+
+<section class="social-section" id="redes">
+  <div class="section-heading">
+    <div class="tag">03 / Síguenos</div>
+    <h2>Conéctate con <span>nosotros.</span></h2>
+    <p>Descubre nuestros cortes, novedades y nuevos estilos en redes sociales.</p>
+  </div>
+
+  <div class="social-links">
+    <a class="social-link instagram" id="instagram-link"
+       href="https://www.instagram.com/"
+       target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7zm5 2.3a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2.2a3.3 3.3 0 1 0 0 6.6 3.3 3.3 0 0 0 0-6.6zm5.8-3.3a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6z"/>
+      </svg>
+      <span>Instagram ↗</span>
+    </a>
+
+    <a class="social-link facebook" id="facebook-link"
+       href="https://www.facebook.com/"
+       target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M13.7 21v-8h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.6-1.5H17V3.6c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.1H7.5V13h2.8v8h3.4z"/>
+      </svg>
+      <span>Facebook ↗</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> <strong>BARBERÍA URBANA</strong><br>
+  Estilo propio. Actitud de calle.
+</footer>
+
+<script>
+  /* =====================================================
+     PERSONALIZA TU NEGOCIO AQUÍ
+     ===================================================== */
+
+  const CONFIG = {
+    nombre: "Barbería Urbana",
+
+    // COLOCA TU NÚMERO REAL CON INDICATIVO.
+    // Colombia: 57 + número de celular, sin + ni espacios.
+    whatsapp: "573104767967TU_NUMERO",
+
+    instagram: "https://www.instagram.com/TU_PERFIL/",
+    facebook: "https://www.facebook.com/TU_PERFIL/",
+
+    servicios: [
+      {
+        nombre: "Corte urbano",
+        precio: 12000,
+        descripcion: "Un corte limpio, fresco y con tu propio estilo."
+      },
+      {
+        nombre: "Corte a domicilio",
+        precio: 15000,
+        descripcion: "Tu estilo llega hasta donde estés."
+      },
+      {
+        nombre: "Mascarilla completa",
+        precio: 13000,
+        descripcion: "Un momento de cuidado para tu rostro."
+      },
+      {
+        nombre: "Exfoliación",
+        precio: 10000,
+        descripcion: "Cuidado facial para renovar tu estilo."
+      },
+      {
+        nombre: "Solo cejas",
+        precio: 5000,
+        descripcion: "Detalles definidos para completar tu look."
+      }
+    ]
+  };
+
+  /* =====================================================
+     FUNCIONES DE LA PÁGINA
+     ===================================================== */
+
+  const seleccionados = new Set();
+
+  const grid = document.getElementById("services-grid");
+  const totalElemento = document.getElementById("total");
+  const contador = document.getElementById("selection-count");
+  const botonEnviar = document.getElementById("send-whatsapp");
+  const formulario = document.getElementById("booking-form");
+  const fechaInput = document.getElementById("booking-date");
+
+  function formatoPesos(numero) {
+    return "$" + numero.toLocaleString("es-CO");
+  }
+
+  function renderServicios() {
+    CONFIG.servicios.forEach((servicio, indice) => {
+      const tarjeta = document.createElement("article");
+      tarjeta.className = "service-card";
+      tarjeta.tabIndex = 0;
+      tarjeta.setAttribute("role", "checkbox");
+      tarjeta.setAttribute("aria-checked", "false");
+
+      const etiqueta = document.createElement("div");
+      etiqueta.className = "selection-label";
+      etiqueta.textContent = "SELECCIONADO";
+
+      const arriba = document.createElement("div");
+      arriba.className = "service-top";
+
+      const nombre = document.createElement("h3");
+      nombre.className = "service-name";
+      nombre.textContent = servicio.nombre;
+
+      const precio = document.createElement("div");
+      precio.className = "service-price";
+      precio.textContent = formatoPesos(servicio.precio);
+
+      const descripcion = document.createElement("p");
+      descripcion.className = "service-description";
+      descripcion.textContent = servicio.descripcion;
+
+      const indicador = document.createElement("div");
+      indicador.className = "select-indicator";
+      indicador.textContent = "✓";
+      indicador.setAttribute("aria-hidden", "true");
+
+      arriba.append(nombre, precio);
+      tarjeta.append(etiqueta, arriba, descripcion, indicador);
+
+      function alternarSeleccion() {
+        if (seleccionados.has(indice)) {
+          seleccionados.delete(indice);
+          tarjeta.classList.remove("selected");
+          tarjeta.setAttribute("aria-checked", "false");
+        } else {
+          seleccionados.add(indice);
+
+          // Reinicia la animación para que se reproduzca en cada selección.
+          tarjeta.classList.remove("selected");
+          void tarjeta.offsetWidth;
+          tarjeta.classList.add("selected");
+          tarjeta.setAttribute("aria-checked", "true");
+        }
+
+        actualizarTotal();
+      }
+
+      tarjeta.addEventListener("click", alternarSeleccion);
+
+      tarjeta.addEventListener("keydown", (evento) => {
+        if (evento.key === "Enter" || evento.key === " ") {
+          evento.preventDefault();
+          alternarSeleccion();
+        }
+      });
+
+      grid.appendChild(tarjeta);
+    });
+  }
+
+  function actualizarTotal() {
+    let total = 0;
+
+    seleccionados.forEach((indice) => {
+      total += CONFIG.servicios[indice].precio;
+    });
+
+    const cantidad = seleccionados.size;
+
+    contador.textContent = cantidad +
+      (cantidad === 1
+        ? " servicio seleccionado"
+        : " servicios seleccionados");
+
+    totalElemento.textContent = formatoPesos(total);
+    botonEnviar.disabled = cantidad === 0;
+  }
+
+  function fechaHoyLocal() {
+    const ahora = new Date();
+    const anio = ahora.getFullYear();
+    const mes = String(ahora.getMonth() + 1).padStart(2, "0");
+    const dia = String(ahora.getDate()).padStart(2, "0");
+    return `${anio}-${mes}-${dia}`;
+  }
+
+  fechaInput.min = fechaHoyLocal();
+
+  document.getElementById("continue-btn").addEventListener("click", () => {
+    if (seleccionados.size === 0) {
+      document.getElementById("servicios").scrollIntoView({
+        behavior: "smooth"
+      });
+
+      grid.animate(
+        [
+          { transform: "translateX(0)" },
+          { transform: "translateX(-5px)" },
+          { transform: "translateX(5px)" },
+          { transform: "translateX(0)" }
+        ],
+        { duration: 300 }
+      );
+      return;
+    }
+
+    document.getElementById("agenda").scrollIntoView({
+      behavior: "smooth"
+    });
+  });
+
+  formulario.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+
+    if (seleccionados.size === 0) {
+      alert("Selecciona al menos un servicio antes de continuar.");
+      return;
+    }
+
+    if (!formulario.reportValidity()) return;
+
+    const nombre = document.getElementById("customer-name").value.trim();
+    const fecha = fechaInput.value;
+    const hora = document.getElementById("booking-time").value;
+
+    if (!nombre || !fecha || !hora || fecha < fechaHoyLocal()) {
+      alert("Comprueba el nombre, la fecha y la hora.");
+      return;
+    }
+
+    const numero = CONFIG.whatsapp.replace(/\D/g, "");
+
+    if (!numero || numero.includes("TU_NUMERO")) {
+      alert("Debes colocar tu número de WhatsApp en la sección CONFIG del HTML.");
+      return;
+    }
+
+    let total = 0;
+    const detalleServicios = [];
+
+    seleccionados.forEach((indice) => {
+      const servicio = CONFIG.servicios[indice];
+      total += servicio.precio;
+
+      detalleServicios.push(
+        "✂️ " + servicio.nombre + ": " + formatoPesos(servicio.precio)
+      );
+    });
+
+    const fechaTexto = new Date(fecha + "T12:00:00").toLocaleDateString(
+      "es-CO",
+      {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }
+    );
+
+    const mensaje =
+      "🔥 SOLICITUD DE CITA - " + CONFIG.nombre.toUpperCase() + "\n\n" +
+      "👤 Nombre: " + nombre + "\n" +
+      "📅 Fecha preferida: " + fechaTexto + "\n" +
+      "🕒 Hora preferida: " + hora + "\n\n" +
+      "💈 SERVICIOS:\n" + detalleServicios.join("\n") + "\n\n" +
+      "💰 TOTAL ESTIMADO: " + formatoPesos(total) + "\n\n" +
+      "⏳ Solicitud pendiente de confirmación del barbero.\n" +
+      "Por favor, confirma si el horario está disponible.";
+
+    const url = "https://wa.me/" + numero +
+      "?text=" + encodeURIComponent(mensaje);
+
+    // Abre WhatsApp con los datos preparados.
+    window.location.href = url;
+  });
+
+  // Enlaces de las redes sociales.
+  document.getElementById("instagram-link").href = CONFIG.instagram;
+  document.getElementById("facebook-link").href = CONFIG.facebook;
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  renderServicios();
+  actualizarTotal();
+</script>
+
+</body>
+</html>
